@@ -102,6 +102,66 @@ public sealed class EmployeeRepository(SqlConnectionFactory connectionFactory) :
         return Convert.ToInt32(result);
     }
 
+    public async Task<bool> UpdateAsync(
+        int id,
+        Employee employee,
+        CancellationToken cancellationToken)
+    {
+        const string sql = """
+            UPDATE dbo.Employees
+            SET Name = @Name, Email = @Email, Salary = @Salary
+            WHERE Id = @Id;
+            """;
+
+        await using var connection =
+            connectionFactory.CreateConnection();
+
+        await connection.OpenAsync(cancellationToken);
+
+        await using var command = new SqlCommand(sql, connection);
+
+        command.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+        command.Parameters.Add(
+            "@Name", SqlDbType.NVarChar, 100).Value = employee.Name;
+        command.Parameters.Add(
+            "@Email", SqlDbType.NVarChar, 256).Value = employee.Email;
+
+        var salaryParameter = command.Parameters.Add(
+            "@Salary", SqlDbType.Decimal);
+
+        salaryParameter.Precision = 18;
+        salaryParameter.Scale = 2;
+        salaryParameter.Value = employee.Salary;
+
+        var rowsAffected = await command.ExecuteNonQueryAsync(
+            cancellationToken);
+
+        return rowsAffected > 0;
+    }
+
+    public async Task<bool> DeleteAsync(
+        int id,
+        CancellationToken cancellationToken)
+    {
+        const string sql = """
+            DELETE FROM dbo.Employees
+            WHERE Id = @Id;
+            """;
+
+        await using var connection =
+            connectionFactory.CreateConnection();
+
+        await connection.OpenAsync(cancellationToken);
+
+        await using var command = new SqlCommand(sql, connection);
+        command.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+        var rowsAffected = await command.ExecuteNonQueryAsync(
+            cancellationToken);
+
+        return rowsAffected > 0;
+    }
+
     private static Employee MapEmployee(SqlDataReader reader)
     {
         return Employee.Rehydrate(

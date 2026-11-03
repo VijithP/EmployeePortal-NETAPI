@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using EmployeePortal.Api.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Employee_Portal.Application.DTOs;
 using Employee_Portal.Application.Interfaces;
 
 namespace EmployeePortal.Api.Controllers;
@@ -40,7 +40,7 @@ public sealed class EmployeesController(IEmployeeService employeeService) : Cont
 
     [HttpPost]
     public async Task<ActionResult<EmployeeResponse>> Create(
-        Employee_Portal.Application.DTOs.CreateEmployeeRequest request,
+        CreateEmployeeRequest request,
         CancellationToken cancellationToken)
     {
         var employee = await employeeService.CreateAsync(
@@ -50,6 +50,35 @@ public sealed class EmployeesController(IEmployeeService employeeService) : Cont
             nameof(GetById),
             new { id = employee.Id },
             employee);
+    }
+
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult<EmployeeResponse>> Update(
+        int id,
+        UpdateEmployeeRequest request,
+        CancellationToken cancellationToken)
+    {
+        var employee = await employeeService.UpdateAsync(
+            id, request, cancellationToken);
+
+        if (employee is null)
+            return NotFound();
+
+        return Ok(employee);
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(
+        int id,
+        CancellationToken cancellationToken)
+    {
+        var deleted = await employeeService.DeleteAsync(
+            id, cancellationToken);
+
+        if (!deleted)
+            return NotFound();
+
+        return NoContent();
     }
 
     [HttpGet("me")]

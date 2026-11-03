@@ -14,4 +14,13 @@ public interface IEmployeeService
     Task<EmployeeResponse> CreateAsync(
         CreateEmployeeRequest request,
         CancellationToken cancellationToken);
+
+    Task<EmployeeResponse?> UpdateAsync(
+        int id,
+        UpdateEmployeeRequest request,
+        CancellationToken cancellationToken);
+
+    Task<bool> DeleteAsync(
+        int id,
+        CancellationToken cancellationToken);
 }

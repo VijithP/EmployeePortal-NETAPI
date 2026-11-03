@@ -14,4 +14,13 @@ public interface IEmployeeRepository
     Task<int> AddAsync(
         Employee employee,
         CancellationToken cancellationToken);
+
+    Task<bool> UpdateAsync(
+        int id,
+        Employee employee,
+        CancellationToken cancellationToken);
+
+    Task<bool> DeleteAsync(
+        int id,
+        CancellationToken cancellationToken);
 }

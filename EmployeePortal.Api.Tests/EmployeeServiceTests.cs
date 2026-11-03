@@ -109,13 +109,80 @@ public class EmployeeServiceTests
         Assert.Null(repository.AddedEmployee);
     }
 
+    [Fact]
+    public async Task UpdateAsync_UpdatesEmployeeAndReturnsUpdatedDetails()
+    {
+        var repository = new FakeEmployeeRepository { UpdateResult = true };
+        var service = new EmployeeService(repository);
+        var request = new UpdateEmployeeRequest
+        {
+            Name = " Ava Patel ",
+            Email = " ava.patel@example.com ",
+            Salary = 85000m
+        };
+
+        var employee = await service.UpdateAsync(
+            7, request, CancellationToken.None);
+
+        Assert.Equal(
+            new EmployeeResponse(7, "Ava Patel", "ava.patel@example.com", 85000m),
+            employee);
+        Assert.Equal(7, repository.RequestedEmployeeId);
+        Assert.Equal("Ava Patel", repository.UpdatedEmployee?.Name);
+        Assert.Equal("ava.patel@example.com", repository.UpdatedEmployee?.Email);
+        Assert.Equal(85000m, repository.UpdatedEmployee?.Salary);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ReturnsNullWhenEmployeeDoesNotExist()
+    {
+        var service = new EmployeeService(new FakeEmployeeRepository());
+
+        var employee = await service.UpdateAsync(
+            7,
+            new UpdateEmployeeRequest
+            {
+                Name = "Ava Patel",
+                Email = "ava.patel@example.com",
+                Salary = 85000m
+            },
+            CancellationToken.None);
+
+        Assert.Null(employee);
+    }
+
+    [Fact]
+    public async Task DeleteAsync_DeletesEmployeeById()
+    {
+        var repository = new FakeEmployeeRepository { DeleteResult = true };
+        var service = new EmployeeService(repository);
+
+        var deleted = await service.DeleteAsync(7, CancellationToken.None);
+
+        Assert.True(deleted);
+        Assert.Equal(7, repository.RequestedEmployeeId);
+    }
+
+    [Fact]
+    public async Task DeleteAsync_ReturnsFalseWhenEmployeeDoesNotExist()
+    {
+        var service = new EmployeeService(new FakeEmployeeRepository());
+
+        var deleted = await service.DeleteAsync(7, CancellationToken.None);
+
+        Assert.False(deleted);
+    }
+
     private sealed class FakeEmployeeRepository : IEmployeeRepository
     {
         public IReadOnlyList<Employee> Employees { get; init; } = [];
         public Employee? Employee { get; init; }
         public int AddedEmployeeId { get; init; } = 1;
+        public bool UpdateResult { get; init; }
+        public bool DeleteResult { get; init; }
         public int? RequestedEmployeeId { get; private set; }
         public Employee? AddedEmployee { get; private set; }
+        public Employee? UpdatedEmployee { get; private set; }
 
         public Task<Employee?> GetByIdAsync(
             int id,
@@ -135,6 +202,24 @@ public class EmployeeServiceTests
         {
             AddedEmployee = employee;
             return Task.FromResult(AddedEmployeeId);
+        }
+
+        public Task<bool> UpdateAsync(
+            int id,
+            Employee employee,
+            CancellationToken cancellationToken)
+        {
+            RequestedEmployeeId = id;
+            UpdatedEmployee = employee;
+            return Task.FromResult(UpdateResult);
+        }
+
+        public Task<bool> DeleteAsync(
+            int id,
+            CancellationToken cancellationToken)
+        {
+            RequestedEmployeeId = id;
+            return Task.FromResult(DeleteResult);
         }
     }
 }

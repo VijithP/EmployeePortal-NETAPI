@@ -49,6 +49,39 @@ public sealed class EmployeeService(IEmployeeRepository repository) : IEmployeeS
             employee.Salary);
     }
 
+    public async Task<EmployeeResponse?> UpdateAsync(
+        int id,
+        UpdateEmployeeRequest request,
+        CancellationToken cancellationToken)
+    {
+        if (id <= 0)
+            throw new ArgumentOutOfRangeException(nameof(id));
+
+        ArgumentNullException.ThrowIfNull(request);
+
+        var employee = Employee.Create(
+            request.Name,
+            request.Email,
+            request.Salary);
+
+        var updated = await repository.UpdateAsync(
+            id, employee, cancellationToken);
+
+        return updated
+            ? new EmployeeResponse(id, employee.Name, employee.Email, employee.Salary)
+            : null;
+    }
+
+    public async Task<bool> DeleteAsync(
+        int id,
+        CancellationToken cancellationToken)
+    {
+        if (id <= 0)
+            throw new ArgumentOutOfRangeException(nameof(id));
+
+        return await repository.DeleteAsync(id, cancellationToken);
+    }
+
     private static EmployeeResponse Map(Employee employee) =>
         new(
             employee.Id,

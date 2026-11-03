@@ -1,0 +1,32 @@
+@baseUrl = http://localhost:5209
+@token = replace-with-a-valid-jwt
+
+### Update an employee
+PUT {{baseUrl}}/api/employees/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Ava Patel",
+  "email": "ava.patel@example.com",
+  "salary": 85000
+}
+
+### Update a non-existent employee
+PUT {{baseUrl}}/api/employees/999999
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Ava Patel",
+  "email": "ava.patel@example.com",
+  "salary": 85000
+}
+
+### Delete an employee
+DELETE {{baseUrl}}/api/employees/1
+Authorization: Bearer {{token}}
+
+### Delete a non-existent employee
+DELETE {{baseUrl}}/api/employees/999999
+Authorization: Bearer {{token}}
