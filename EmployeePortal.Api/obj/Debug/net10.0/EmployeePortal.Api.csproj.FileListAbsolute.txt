@@ -87,3 +87,9 @@ C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Debug\net10.0\Employee
 C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Debug\net10.0\Employee-Portal.Application.pdb
 C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Debug\net10.0\Employee-Portal.Infrastructure.pdb
 C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Debug\net10.0\Employee-Portal.Domain.pdb
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Debug\net10.0\publish\web.config
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Debug\net10.0\publish\appsettings.Development.json
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Debug\net10.0\publish\appsettings.json
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Debug\net10.0\publish\EmployeePortal.Api.deps.json
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Debug\net10.0\publish\EmployeePortal.Api.runtimeconfig.json
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Debug\net10.0\publish\EmployeePortal.Api.staticwebassets.endpoints.json

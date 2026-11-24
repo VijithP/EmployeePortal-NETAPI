@@ -1,1 +1,4 @@
-{}
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/a3a84a12-f762-4444-8db7-554e65740efa/resourceGroups/rg-loanapp-dev/providers/Microsoft.Web/sites/loanapi",
+    "appService.deploySubpath": "EmployeePortal.Api"
+}
