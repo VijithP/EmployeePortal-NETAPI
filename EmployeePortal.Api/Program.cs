@@ -102,4 +102,15 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/health", () =>
+{
+    return Results.Ok(new
+    {
+        Status = "Healthy",
+        Application = "LoanApi",
+        Environment = app.Environment.EnvironmentName
+    });
+});
+
 app.Run();
