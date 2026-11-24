@@ -87,3 +87,9 @@ C:\MyProject\EmployeePortal-NetApi\employeeportal.api\obj\Release\net10.0\refint
 C:\MyProject\EmployeePortal-NetApi\employeeportal.api\obj\Release\net10.0\EmployeePortal.Api.pdb
 C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\obj\Release\net10.0\EmployeePortal.Api.genruntimeconfig.cache
 C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\obj\Release\net10.0\ref\EmployeePortal.Api.dll
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Release\net10.0\publish\web.config
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Release\net10.0\publish\appsettings.Development.json
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Release\net10.0\publish\appsettings.json
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Release\net10.0\publish\EmployeePortal.Api.deps.json
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Release\net10.0\publish\EmployeePortal.Api.runtimeconfig.json
+C:\MyProject\EmployeePortal-NetApi\EmployeePortal.Api\bin\Release\net10.0\publish\EmployeePortal.Api.staticwebassets.endpoints.json

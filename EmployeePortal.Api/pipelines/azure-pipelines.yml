@@ -21,7 +21,7 @@ stages:
             parameters:
               projectPath: 'EmployeePortal.Api/EmployeePortal.Api.csproj'
               testProjectPath: 'EmployeePortal.Api.Tests/EmployeePortal.Api.Tests.csproj'
-              dotnetVersion: '8.x'
+              dotnetVersion: '10.x'
 
   # Development
   - stage: Deploy_Dev

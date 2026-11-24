@@ -10,7 +10,7 @@ parameters:
 
   - name: dotnetVersion
     type: string
-    default: '8.x'
+    default: '10.x'
 
 steps:
   - task: UseDotNet@2
